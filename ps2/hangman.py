@@ -13,7 +13,7 @@ import random
 import string
 import typing
 
-WORDLIST_FILENAME = "words.txt"
+WORDLIST_FILENAME = "./ps2/words.txt"
 
 
 def load_words():
@@ -69,56 +69,144 @@ def is_word_guessed(secret_word: str, letters_guessed: "list[str]") -> bool:
 
 
 
-def get_guessed_word(secret_word, letters_guessed):
+def get_guessed_word(secret_word: str, letters_guessed: "list[str]") -> str:
     '''
     secret_word: string, the word the user is guessing
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string, comprised of letters, underscores (_), and spaces that represents
       which letters in secret_word have been guessed so far.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    guessed_word = ""
+
+    for letter in secret_word:
+      if letter in letters_guessed:
+        guessed_word += letter
+      else:
+        if len(guessed_word) > 0 and list(guessed_word).pop() == "_":
+          guessed_word += " "
+
+        guessed_word += "_"
+    
+    return guessed_word
+      
 
 
 
-def get_available_letters(letters_guessed):
+def get_available_letters(letters_guessed: "list[str]") -> str:
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string (of letters), comprised of letters that represents which letters have not
       yet been guessed.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-    
-    
+    available_letters = ""
 
-def hangman(secret_word):
-    '''
-    secret_word: string, the secret word to guess.
+    for letter in string.ascii_lowercase:
+      if letter not in letters_guessed:
+        available_letters += letter
     
-    Starts up an interactive game of Hangman.
+    return available_letters
+
+def get_unique_letters_of_secret_word(secret_word: str) -> int:
+  checked_letters: "list[str]" = []
+  unique_letters_count = 0
+
+  for letter in secret_word:
+    if letter not in checked_letters:
+      unique_letters_count += 1
+
+    checked_letters.append(letter)
+  
+  return unique_letters_count
     
-    * At the start of the game, let the user know how many 
-      letters the secret_word contains and how many guesses s/he starts with.
+def guess_is_not_valid(guess: str, letters_guessed: "list[str]") -> bool:
+  if len(guess) < 1:
+    return True
+
+  return guess in get_available_letters(letters_guessed)
+
+def hangman(secret_word: str):
+  '''
+  secret_word: string, the secret word to guess.
+  
+  Starts up an interactive game of Hangman.
+  
+  * At the start of the game, let the user know how many 
+    letters the secret_word contains and how many guesses s/he starts with.
+    
+  * The user should start with 6 guesses
+
+  * Before each round, you should display to the user how many guesses
+    s/he has left and the letters that the user has not yet guessed.
+  
+  * Ask the user to supply one guess per round. Remember to make
+    sure that the user puts in a letter!
+  
+  * The user should receive feedback immediately after each guess 
+    about whether their guess appears in the computer's word.
+
+  * After each guess, you should display to the user the 
+    partially guessed word so far.
+  
+  Follows the other limitations detailed in the problem write-up.
+  '''
+  guesses_remaining = 6
+  warnings_remaining = 3
+  letters_guessed: "list[str]" = []
+
+  
+  print("Welcome to the game Hangman!")
+  print("I am thinking of a word that is " + str(len(secret_word)) + " characters long.")
+
+  while guesses_remaining > 0 and not is_word_guessed(secret_word, letters_guessed):
+    print("------------------------------")
+    print("You have " + str(guesses_remaining) + " guesses left.")
+    print("Available letters: " + get_available_letters(letters_guessed))
+
+    new_guess = input("Try to guess a letter of my word:").lower()
+
+    while guess_is_not_valid(new_guess, letters_guessed):
+      warnings_remaining -= 1
+
+      if new_guess in letters_guessed:
+        print("You already tried that letter!")
+      else:
+        print("I think that is not one letter!")
+
+      if warnings_remaining == 0:
+        guesses_remaining -= 1
+        warnings_remaining = 3
+        print("This is the third time I warn you, so you have lost 1 guess!")
+        if guesses_remaining < 1:
+          print("And it was your last guess, so...")
+          break
+        
+      else: 
+        print("Three warnings like this and you lose a guess. Currently: ", warnings_remaining)      
       
-    * The user should start with 6 guesses
+      new_guess = input("Give me a letter: ")
+    
+    letters_guessed.append(new_guess)
 
-    * Before each round, you should display to the user how many guesses
-      s/he has left and the letters that the user has not yet guessed.
+    if new_guess in secret_word:
+      if is_word_guessed(secret_word, letters_guessed):
+        print("You got it! My word was", secret_word + "!")
+        print("Score: ", get_unique_letters_of_secret_word(secret_word) * guesses_remaining)
+        print("--- THE END ---")
+      else:
+        print("Amazing, the letter was in my word!", get_guessed_word(secret_word, letters_guessed))
+    else:
+      print("Sorry! My word lacks that letter >:)", get_guessed_word(secret_word, letters_guessed))
+      if new_guess in ["a", "e", "i", "o", "u"]:
+        guesses_remaining -= 2
+        print("Vowels not in my word remove two attempts!")
+      else:
+        guesses_remaining -= 1
     
-    * Ask the user to supply one guess per round. Remember to make
-      sure that the user puts in a letter!
-    
-    * The user should receive feedback immediately after each guess 
-      about whether their guess appears in the computer's word.
+    if guesses_remaining < 1:
+      print("HAHAHA! This is the end, my word will be a secret forever!")
+      print("--- GAME OVER ----")
 
-    * After each guess, you should display to the user the 
-      partially guessed word so far.
-    
-    Follows the other limitations detailed in the problem write-up.
-    '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+      
 
 
 
