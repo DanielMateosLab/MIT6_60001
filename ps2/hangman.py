@@ -82,7 +82,7 @@ def get_guessed_word(secret_word: str, letters_guessed: "list[str]") -> str:
       if letter in letters_guessed:
         guessed_word += letter
       else:
-        if len(guessed_word) > 0 and list(guessed_word).pop() == "_":
+        if len(guessed_word) > 0 and guessed_word[-1] == "_":
           guessed_word += " "
 
         guessed_word += "_"
