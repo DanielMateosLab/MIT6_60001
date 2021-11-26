@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Problem Set 2, hangman.py
 # Name: 
 # Collaborators:
@@ -13,7 +15,7 @@ import random
 import string
 import typing
 
-WORDLIST_FILENAME = "./ps2/words.txt"
+WORDLIST_FILENAME = "words.txt"
 
 
 def load_words():
