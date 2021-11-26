@@ -122,7 +122,7 @@ def guess_is_not_valid(guess: str, letters_guessed: "list[str]") -> bool:
   if len(guess) < 1:
     return True
 
-  return guess in get_available_letters(letters_guessed)
+  return not (guess in get_available_letters(letters_guessed))
 
 def hangman(secret_word: str):
   '''
