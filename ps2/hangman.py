@@ -237,9 +237,10 @@ def match_with_gaps(my_word: str, other_word: str) -> bool:
       return False
     
     for letterIndex in range(len(my_word_parsed)):
-      if my_word_parsed[letterIndex] == "_":
-        pass
-      elif my_word_parsed[letterIndex] != other_word[letterIndex]:
+      my_word_letter = my_word_parsed[letterIndex]
+      other_word_letter = other_word[letterIndex]
+
+      if my_word_letter != "_" and my_word_letter != other_word_letter:
         return False
 
     return True
