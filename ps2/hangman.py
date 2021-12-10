@@ -221,8 +221,8 @@ def hangman(secret_word: str):
 # -----------------------------------
 
 
-
-def match_with_gaps(my_word, other_word):
+# %%
+def match_with_gaps(my_word: str, other_word: str) -> bool:
     '''
     my_word: string with _ characters, current guess of secret word
     other_word: string, regular English word
@@ -231,10 +231,25 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    my_word_parsed = my_word.replace(" ", "")
 
+    if (len(my_word_parsed) != len(other_word)):
+      return False
+    
+    for letterIndex in range(len(my_word_parsed)):
+      if my_word_parsed[letterIndex] == "_":
+        pass
+      elif my_word_parsed[letterIndex] != other_word[letterIndex]:
+        return False
 
+    return True
+      
+
+print(match_with_gaps("te_ t", "tact") == False and "Pass" or "Fail")
+print(match_with_gaps("a_ _ le", "banana") == False and "Pass" or "Fail")
+print(match_with_gaps("a_ _ le", "apple") == True and "Pass" or "Fail")
+print(match_with_gaps("a_ ple", "apple") == True and "Pass" or "Fail")
+# %%
 
 def show_possible_matches(my_word):
     '''
