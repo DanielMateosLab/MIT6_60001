@@ -250,22 +250,28 @@ print(match_with_gaps("te_ t", "tact") == False and "Pass" or "Fail")
 print(match_with_gaps("a_ _ le", "banana") == False and "Pass" or "Fail")
 print(match_with_gaps("a_ _ le", "apple") == True and "Pass" or "Fail")
 print(match_with_gaps("a_ ple", "apple") == True and "Pass" or "Fail")
+
+
+def show_possible_matches(my_word: str):
+  '''
+  my_word: string with _ characters, current guess of secret word
+  returns: nothing, but should print out every word in wordlist that matches my_word
+            Keep in mind that in hangman when a letter is guessed, all the positions
+            at which that letter occurs in the secret word are revealed.
+            Therefore, the hidden letter(_ ) cannot be one of the letters in the word
+            that has already been revealed.
+  '''
+  possible_matches: typing.List[str] = []
+
+  for word in wordlist:
+    if match_with_gaps(my_word, word):
+      possible_matches.append(word)
+  
+  print("Possible matches are:")
+  for match in possible_matches:
+    print(match, end=" ")
+
 # %%
-
-def show_possible_matches(my_word):
-    '''
-    my_word: string with _ characters, current guess of secret word
-    returns: nothing, but should print out every word in wordlist that matches my_word
-             Keep in mind that in hangman when a letter is guessed, all the positions
-             at which that letter occurs in the secret word are revealed.
-             Therefore, the hidden letter(_ ) cannot be one of the letters in the word
-             that has already been revealed.
-
-    '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-
-
 
 def hangman_with_hints(secret_word):
     '''
