@@ -1,0 +1,1 @@
+print([candidate for candidate in range(2, 100) if any(candidate % posibleDivisor == 0 for posibleDivisor in range(3, candidate))])
