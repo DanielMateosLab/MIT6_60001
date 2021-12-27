@@ -217,3 +217,9 @@ print('new_flat =', new_flat)
 cool[1] = 'black'
 print(cool)
 print(colors1)
+
+# %%
+# Example of nested list comprehension
+
+print([[(x, y) for x in range(6) if x % 2 == 0] for y in range(6) if y % 3 == 0])
+# %%
