@@ -13,7 +13,7 @@
 # (so be sure to read the docstrings!)
 import random
 import string
-import typing
+from typing import List
 
 WORDLIST_FILENAME = "words.txt"
 
@@ -37,7 +37,7 @@ def load_words():
 
 
 
-def choose_word(wordlist: "list[str]"):
+def choose_word(wordlist: List[str]):
     """
     wordlist (list): list of words (strings)
     
@@ -54,7 +54,7 @@ def choose_word(wordlist: "list[str]"):
 wordlist = load_words()
 
 
-def is_word_guessed(secret_word: str, letters_guessed: "list[str]") -> bool:
+def is_word_guessed(secret_word: str, letters_guessed: List[str]) -> bool:
     '''
     secret_word: string, the word the user is guessing; assumes all letters are
       lowercase
@@ -71,7 +71,7 @@ def is_word_guessed(secret_word: str, letters_guessed: "list[str]") -> bool:
 
 
 
-def get_guessed_word(secret_word: str, letters_guessed: "list[str]") -> str:
+def get_guessed_word(secret_word: str, letters_guessed: List[str]) -> str:
     '''
     secret_word: string, the word the user is guessing
     letters_guessed: list (of letters), which letters have been guessed so far
@@ -94,7 +94,7 @@ def get_guessed_word(secret_word: str, letters_guessed: "list[str]") -> str:
 
 
 
-def get_available_letters(letters_guessed: "list[str]") -> str:
+def get_available_letters(letters_guessed: List[str]) -> str:
     '''
     letters_guessed: list (of letters), which letters have been guessed so far
     returns: string (of letters), comprised of letters that represents which letters have not
@@ -109,7 +109,7 @@ def get_available_letters(letters_guessed: "list[str]") -> str:
     return available_letters
 
 def get_unique_letters_of_secret_word(secret_word: str) -> int:
-  checked_letters: "list[str]" = []
+  checked_letters: List[str] = []
   unique_letters_count = 0
 
   for letter in secret_word:
@@ -120,7 +120,7 @@ def get_unique_letters_of_secret_word(secret_word: str) -> int:
   
   return unique_letters_count
     
-def guess_is_not_valid(guess: str, letters_guessed: "list[str]") -> bool:
+def guess_is_not_valid(guess: str, letters_guessed: List[str]) -> bool:
   if len(guess) < 1:
     return True
 
@@ -153,7 +153,7 @@ def hangman(secret_word: str, with_hints: bool = False):
   '''
   guesses_remaining = 6
   warnings_remaining = 3
-  letters_guessed: "list[str]" = []
+  letters_guessed: List[str] = []
 
   
   print("Welcome to the game Hangman!")
@@ -228,7 +228,7 @@ def hangman(secret_word: str, with_hints: bool = False):
 
 
 # %%
-def match_with_gaps(my_word: str, other_word: str, letters_guesed: typing.List[str]) -> bool:
+def match_with_gaps(my_word: str, other_word: str, letters_guesed: List[str]) -> bool:
     '''
     my_word: string with _ characters, current guess of secret word
     other_word: string, regular English word
@@ -255,7 +255,7 @@ def match_with_gaps(my_word: str, other_word: str, letters_guesed: typing.List[s
     return True
 
 
-def show_possible_matches(my_word: str, letters_guesed: typing.List[str]):
+def show_possible_matches(my_word: str, letters_guesed: List[str]):
   '''
   my_word: string with _ characters, current guess of secret word
   returns: nothing, but should print out every word in wordlist that matches my_word
@@ -264,7 +264,7 @@ def show_possible_matches(my_word: str, letters_guesed: typing.List[str]):
             Therefore, the hidden letter(_ ) cannot be one of the letters in the word
             that has already been revealed.
   '''
-  possible_matches: typing.List[str] = []
+  possible_matches: List[str] = []
 
   for word in wordlist:
     if match_with_gaps(my_word, word, letters_guesed):
