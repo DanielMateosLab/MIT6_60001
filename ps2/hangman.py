@@ -155,42 +155,50 @@ def hangman(secret_word: str, with_hints: bool = False):
   warnings_remaining = 3
   letters_guessed: List[str] = []
 
-  
+  # Welcome the user
   print("Welcome to the game Hangman!")
   with_hints and \
     print("There are hints available! Type * as letter guess to get all the possibilities")
   print("I am thinking of a word that is " + str(len(secret_word)) + " characters long.")
 
   while guesses_remaining > 0 and not is_word_guessed(secret_word, letters_guessed):
+    # Give the user info about game state in the current round
     print("------------------------------")
     print("You have " + str(guesses_remaining) + " guesses left.")
     print("Available letters: " + get_available_letters(letters_guessed))
 
+    # Ask for a letter
     new_guess = input("Try to guess a letter of my word:").lower()
 
+    # Show possible matches if hints are enabled and the user asks for it
     if with_hints and new_guess == "*":
       my_word = get_guessed_word(secret_word, letters_guessed)
       show_possible_matches(my_word, letters_guessed)
     else:
+      # Validate user input
       while guess_is_not_valid(new_guess, letters_guessed):
+        # Remove a warning
         warnings_remaining -= 1
 
+        # Explain the user why the input is invalid
         if new_guess in letters_guessed:
           print("You already tried that letter!")
         else:
           print("I think that is not one letter!")
 
+        # Remove a guess every three warnings
         if warnings_remaining == 0:
           guesses_remaining -= 1
           warnings_remaining = 3
           print("This is the third time I warn you, so you have lost 1 guess!")
+          # End the game if the user loses his last guess
           if guesses_remaining < 1:
             print("And it was your last guess, so...")
             break
-          
-        else: 
-          print("Three warnings like this and you lose a guess. Currently: ", warnings_remaining)      
         
+        # Tell the player his remaining warnings and ask for a new guess
+        else: 
+          print("Three warnings like this and you lose a guess. Currently: ", warnings_remaining)              
         new_guess = input("Give me a letter: ")
       
       letters_guessed.append(new_guess)
