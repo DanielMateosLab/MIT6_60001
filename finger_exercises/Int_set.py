@@ -15,11 +15,11 @@ class Int_set(object):
   def get_members(self):
     return self._vals[:]
 
-  def union(self, other: Int_set):
+  def __add__(self, other: Int_set):
     """other is an Int_set
     mutates self so that it contains exactly the elemnts in self
     plus the elements in other."""
-    self._vals += other.get_members()
+    return self._vals + other._vals
 
 class Test_Int_set(unittest.TestCase):
   def test_union(self):
@@ -29,6 +29,5 @@ class Test_Int_set(unittest.TestCase):
     set2 = Int_set()
     set2.add([3, 4])
 
-    set1.union(set2)
-
-    self.assertEqual(set1.get_members(), [1, 2, 3, 4])
+    self.assertEqual(set1 + set2, [1, 2, 3, 4])
+    
