@@ -1,6 +1,5 @@
 .venv/
 venv
 6-0001-fall-2016/
-*.pdf
 fib_file
 __pycache__
