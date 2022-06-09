@@ -127,6 +127,11 @@ def get_letter_points(word: str) -> int:
     return sum(points)
 
 
+def get_multiplier(word_len: int, hand_len: int) -> int:
+    """Returns the points multiplier for the word."""
+    return max(7 * word_len - 3 * (hand_len - word_len), 1)
+
+
 #
 # Make sure you understand how this function works and what it does!
 #
