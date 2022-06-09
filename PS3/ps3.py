@@ -120,6 +120,11 @@ def get_word_score(word: str, n: int) -> int:
     """
     lower_word = word.lower()
 
+    letter_points = get_letter_points(lower_word)
+    multiplier = get_multiplier(len(lower_word), n)
+
+    return letter_points * multiplier
+
 
 def get_letter_points(word: str) -> int:
     """Returns the sum of points for each letter of the word."""
