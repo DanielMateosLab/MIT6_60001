@@ -10,6 +10,7 @@
 import math
 import random
 import string
+from typing import Dict
 
 VOWELS = "aeiou"
 CONSONANTS = "bcdfghjklmnpqrstvwxyz"
@@ -163,7 +164,7 @@ def display_hand(hand):
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
 #
-def deal_hand(n):
+def deal_hand(n) -> Dict[str, int]:
     """
     Returns a random hand containing n lowercase letters.
     ceil(n/3) letters in the hand should be VOWELS (note,
@@ -177,7 +178,7 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
 
-    hand = {}
+    hand: Dict[str, int] = {}
     num_vowels = int(math.ceil(n / 3))
 
     for i in range(num_vowels):
