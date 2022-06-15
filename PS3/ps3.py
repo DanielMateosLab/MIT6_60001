@@ -214,7 +214,16 @@ def update_hand(hand: Dict[str, int], word: str) -> Dict[str, int]:
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    new_hand: Dict[str, int] = hand.copy()
+
+    for letter in word.lower():
+        occurrences = new_hand.get(letter, 0)
+        if occurrences == 1:
+            new_hand.pop(letter)
+        if occurrences > 1:
+            new_hand[letter] -= 1
+
+    return new_hand
 
 
 #
