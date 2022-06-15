@@ -71,7 +71,7 @@ def load_words():
     return wordlist
 
 
-def get_frequency_dict(sequence):
+def get_frequency_dict(sequence: str) -> Dict[str, int]:
     """
     Returns a dictionary where the keys are elements of the sequence
     and the values are integer counts, for the number of times that
@@ -82,7 +82,7 @@ def get_frequency_dict(sequence):
     """
 
     # freqs: dictionary (element_type -> int)
-    freq = {}
+    freq: Dict[str, int] = {}
     for x in sequence:
         freq[x] = freq.get(x, 0) + 1
     return freq
