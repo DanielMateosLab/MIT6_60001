@@ -178,8 +178,8 @@ def deal_hand(n) -> Hand:
     returns: dictionary (string -> int)
     """
 
-    hand: Hand = {}
-    num_vowels = int(math.ceil(n / 3))
+    hand: Hand = {"*": 1}
+    num_vowels = int(math.ceil(n / 3)) - 1
 
     for i in range(num_vowels):
         x = random.choice(VOWELS)
@@ -241,7 +241,7 @@ def is_valid_word(word: str, hand: Hand, word_list: list[str]) -> bool:
     returns: boolean
     """
     lower_word = word.lower()
-    
+
     if lower_word not in word_list:
         return False
 
