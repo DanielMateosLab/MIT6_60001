@@ -1,4 +1,5 @@
 from ps3 import (
+    calculate_handlen,
     get_letter_points,
     get_multiplier,
     get_word_score,
@@ -57,3 +58,11 @@ def test_update_hand(hand, word, expected_hand):
 )
 def test_is_valid_word(word, hand, expected):
     assert is_valid_word(word, hand, ["cows"]) == expected
+
+
+@pytest.mark.parametrize(
+    "hand,expected",
+    [({"a": 2, "u": 1, "c": 3, "o": 1}, 7), ({"e": 1, "u": 1, "c": 3, "*": 1}, 6)],
+)
+def test_calculate_handlen(hand, expected):
+    assert calculate_handlen(hand) == expected

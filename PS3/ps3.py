@@ -265,15 +265,14 @@ def is_valid_word(word: str, hand: Hand, word_list: list[str]) -> bool:
 #
 # Problem #5: Playing a hand
 #
-def calculate_handlen(hand):
+def calculate_handlen(hand: Hand) -> int:
     """
     Returns the length (number of letters) in the current hand.
 
     hand: dictionary (string-> int)
     returns: integer
     """
-
-    pass  # TO DO... Remove this line when you implement this function
+    return sum(hand.values())
 
 
 def play_hand(hand, word_list):
