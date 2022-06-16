@@ -104,16 +104,16 @@ def get_word_score(word: str, n: int) -> int:
     lowercase letters, so you will have to handle uppercase and mixed case strings
     appropriately.
 
-        The score for a word is the product of two components:
+                    The score for a word is the product of two components:
 
-        The first component is the sum of the points for letters in the word.
-        The second component is the larger of:
-            1, or
-            7*wordlen - 3*(n-wordlen), where wordlen is the length of the word
-            and n is the hand length when the word was played
+                    The first component is the sum of the points for letters in the word.
+                    The second component is the larger of:
+                                    1, or
+                                    7*wordlen - 3*(n-wordlen), where wordlen is the length of the word
+                                    and n is the hand length when the word was played
 
-        Letters are scored as in Scrabble; A is worth 1, B is
-        worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
+                    Letters are scored as in Scrabble; A is worth 1, B is
+                    worth 3, C is worth 3, D is worth 2, E is worth 1, and so on.
 
     word: string
     n: int >= 0
@@ -146,9 +146,9 @@ def display_hand(hand):
     Displays the letters currently in the hand.
 
     For example:
-       display_hand({'a':1, 'x':2, 'l':3, 'e':1})
+             display_hand({'a':1, 'x':2, 'l':3, 'e':1})
     Should print out something like:
-       a x x l l l e
+             a x x l l l e
     The order of the letters is unimportant.
 
     hand: dictionary (string -> int)
@@ -240,8 +240,20 @@ def is_valid_word(word: str, hand: Hand, word_list: list[str]) -> bool:
     word_list: list of lowercase strings
     returns: boolean
     """
+    lower_word = word.lower()
+    
+    if lower_word not in word_list:
+        return False
 
-    pass  # TO DO... Remove this line when you implement this function
+    hand_copy = hand.copy()
+    for letter in lower_word:
+        occurrences = hand_copy.get(letter, 0)
+        if occurrences == 0:
+            return False
+        else:
+            hand_copy[letter] -= 1
+
+    return True
 
 
 #
@@ -268,24 +280,24 @@ def play_hand(hand, word_list):
     * The user may input a word.
 
     * When any word is entered (valid or invalid), it uses up letters
-      from the hand.
+            from the hand.
 
     * An invalid word is rejected, and a message is displayed asking
-      the user to choose another word.
+            the user to choose another word.
 
     * After every valid word: the score for that word is displayed,
-      the remaining letters in the hand are displayed, and the user
-      is asked to input another word.
+            the remaining letters in the hand are displayed, and the user
+            is asked to input another word.
 
     * The sum of the word scores is displayed when the hand finishes.
 
     * The hand finishes when there are no more unused letters.
-      The user can also finish playing the hand by inputing two
-      exclamation points (the string '!!') instead of a word.
+            The user can also finish playing the hand by inputing two
+            exclamation points (the string '!!') instead of a word.
 
-      hand: dictionary (string -> int)
-      word_list: list of lowercase strings
-      returns: the total score for the hand
+            hand: dictionary (string -> int)
+            word_list: list of lowercase strings
+            returns: the total score for the hand
 
     """
 
@@ -342,9 +354,9 @@ def substitute_hand(hand, letter):
     Has no side effects: does not mutate hand.
 
     For example:
-        substitute_hand({'h':1, 'e':1, 'l':2, 'o':1}, 'l')
+                    substitute_hand({'h':1, 'e':1, 'l':2, 'o':1}, 'l')
     might return:
-        {'h':1, 'e':1, 'o':1, 'x':2} -> if the new letter is 'x'
+                    {'h':1, 'e':1, 'o':1, 'x':2} -> if the new letter is 'x'
     The new letter should not be 'h', 'e', 'l', or 'o' since those letters were
     already in the hand.
 
@@ -363,24 +375,24 @@ def play_game(word_list):
     * Asks the user to input a total number of hands
 
     * Accumulates the score for each hand into a total score for the
-      entire series
+            entire series
 
     * For each hand, before playing, ask the user if they want to substitute
-      one letter for another. If the user inputs 'yes', prompt them for their
-      desired letter. This can only be done once during the game. Once the
-      substitue option is used, the user should not be asked if they want to
-      substitute letters in the future.
+            one letter for another. If the user inputs 'yes', prompt them for their
+            desired letter. This can only be done once during the game. Once the
+            substitue option is used, the user should not be asked if they want to
+            substitute letters in the future.
 
     * For each hand, ask the user if they would like to replay the hand.
-      If the user inputs 'yes', they will replay the hand and keep
-      the better of the two scores for that hand.  This can only be done once
-      during the game. Once the replay option is used, the user should not
-      be asked if they want to replay future hands. Replaying the hand does
-      not count as one of the total number of hands the user initially
-      wanted to play.
+            If the user inputs 'yes', they will replay the hand and keep
+            the better of the two scores for that hand.  This can only be done once
+            during the game. Once the replay option is used, the user should not
+            be asked if they want to replay future hands. Replaying the hand does
+            not count as one of the total number of hands the user initially
+            wanted to play.
 
-            * Note: if you replay a hand, you do not get the option to substitute
-                    a letter - you must play whatever hand you just had.
+                                    * Note: if you replay a hand, you do not get the option to substitute
+                                                                    a letter - you must play whatever hand you just had.
 
     * Returns the total score for the series of hands
 
