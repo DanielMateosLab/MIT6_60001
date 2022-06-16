@@ -82,7 +82,7 @@ def get_frequency_dict(sequence: str) -> Hand:
     """
 
     # freqs: dictionary (element_type -> int)
-    freq: Dict[str, int] = {}
+    freq: Hand = {}
     for x in sequence:
         freq[x] = freq.get(x, 0) + 1
     return freq
