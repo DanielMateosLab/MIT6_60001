@@ -242,8 +242,14 @@ def is_valid_word(word: str, hand: Hand, word_list: list[str]) -> bool:
     """
     lower_word = word.lower()
 
-    if lower_word not in word_list:
+    if lower_word.find("*") != -1:
+        for v in VOWELS:
+            if lower_word.replace("*", v) in word_list:
+                return True
         return False
+    else:
+        if lower_word not in word_list:
+            return False
 
     hand_copy = hand.copy()
     for letter in lower_word:

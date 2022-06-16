@@ -1,4 +1,10 @@
-from ps3 import get_letter_points, get_multiplier, get_word_score, update_hand
+from ps3 import (
+    get_letter_points,
+    get_multiplier,
+    get_word_score,
+    is_valid_word,
+    update_hand,
+)
 import pytest
 
 
@@ -38,3 +44,16 @@ def test_get_word_score(word, hand_len, expected_score):
 )
 def test_update_hand(hand, word, expected_hand):
     assert update_hand(hand, word) == expected_hand
+
+
+@pytest.mark.parametrize(
+    "word,hand,expected",
+    [
+        ("c*ws", {"c": 1, "o": 1, "w": 1, "s": 1, "*": 1, "z": 1}, True),
+        ("cows", {"c": 1, "o": 1, "w": 1, "s": 1, "*": 1, "z": 1}, True),
+        ("co*s", {"c": 1, "o": 1, "w": 1, "s": 1, "*": 1, "z": 1}, False),
+        ("zow", {"c": 1, "o": 1, "w": 1, "s": 1, "*": 1, "z": 1}, False),
+    ],
+)
+def test_is_valid_word(word, hand, expected):
+    assert is_valid_word(word, hand, ["cows"]) == expected
