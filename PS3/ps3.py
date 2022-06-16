@@ -9,8 +9,8 @@
 
 import math
 import random
-import string
-from typing import Dict
+
+Hand = dict[str, int]
 
 VOWELS = "aeiou"
 CONSONANTS = "bcdfghjklmnpqrstvwxyz"
@@ -71,7 +71,7 @@ def load_words():
     return wordlist
 
 
-def get_frequency_dict(sequence: str) -> Dict[str, int]:
+def get_frequency_dict(sequence: str) -> Hand:
     """
     Returns a dictionary where the keys are elements of the sequence
     and the values are integer counts, for the number of times that
@@ -164,7 +164,7 @@ def display_hand(hand):
 # Make sure you understand how this function works and what it does!
 # You will need to modify this for Problem #4.
 #
-def deal_hand(n) -> Dict[str, int]:
+def deal_hand(n) -> Hand:
     """
     Returns a random hand containing n lowercase letters.
     ceil(n/3) letters in the hand should be VOWELS (note,
@@ -178,7 +178,7 @@ def deal_hand(n) -> Dict[str, int]:
     returns: dictionary (string -> int)
     """
 
-    hand: Dict[str, int] = {}
+    hand: Hand = {}
     num_vowels = int(math.ceil(n / 3))
 
     for i in range(num_vowels):
@@ -195,7 +195,7 @@ def deal_hand(n) -> Dict[str, int]:
 #
 # Problem #2: Update a hand by removing letters
 #
-def update_hand(hand: Dict[str, int], word: str) -> Dict[str, int]:
+def update_hand(hand: Hand, word: str) -> Hand:
     """
     Does NOT assume that hand contains every letter in word at least as
     many times as the letter appears in word. Letters in word that don't
@@ -214,7 +214,7 @@ def update_hand(hand: Dict[str, int], word: str) -> Dict[str, int]:
     returns: dictionary (string -> int)
     """
 
-    new_hand: Dict[str, int] = hand.copy()
+    new_hand: Hand = hand.copy()
 
     for letter in word.lower():
         occurrences = new_hand.get(letter, 0)
@@ -229,7 +229,7 @@ def update_hand(hand: Dict[str, int], word: str) -> Dict[str, int]:
 #
 # Problem #3: Test word validity
 #
-def is_valid_word(word, hand, word_list):
+def is_valid_word(word: str, hand: Hand, word_list: list[str]) -> bool:
     """
     Returns True if word is in the word_list and is entirely
     composed of letters in the hand. Otherwise, returns False.
